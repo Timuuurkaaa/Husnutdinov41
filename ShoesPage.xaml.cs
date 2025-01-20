@@ -23,11 +23,13 @@ namespace Husnutdinov41
         public ShoesPage()
         {
             InitializeComponent();
+            var currentShoes = Husnutdinov41Entities.GetContext().Product.ToList();
+            ShoesListView.ItemsSource = currentShoes;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ShoesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Manager.MainFrame.Navigate(new AddEditShoes());
+
         }
     }
 }
