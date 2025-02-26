@@ -148,6 +148,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Husnutdinov41_Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.Config" />
     <None Include="Husnutdinov41_Model.edmx.diagram">
       <DependentUpon>Husnutdinov41_Model.edmx</DependentUpon>
     </None>
@@ -158,25 +159,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="img\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Husnutdinov41_Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Husnutdinov41_Model.Context.cs</LastGenOutput>
-      <DependentUpon>Husnutdinov41_Model.edmx</DependentUpon>
-    </Content>
-    <Content Include="Husnutdinov41_Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Husnutdinov41_Model.edmx</DependentUpon>
-      <LastGenOutput>Husnutdinov41_Model.cs</LastGenOutput>
-    </Content>
     <Resource Include="img\B320R5.jpg" />
     <Resource Include="img\D329H3.jpg" />
     <Resource Include="img\D572U8.jpg" />
@@ -191,6 +179,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Husnutdinov41_Model.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Husnutdinov41_Model.edmx</DependentUpon>
+      <LastGenOutput>Husnutdinov41_Model.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Husnutdinov41_Model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Husnutdinov41_Model.edmx</DependentUpon>
+      <LastGenOutput>Husnutdinov41_Model.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

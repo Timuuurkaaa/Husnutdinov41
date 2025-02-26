@@ -15,11 +15,11 @@ namespace Husnutdinov41
     
     public partial class Husnutdinov41Entities : DbContext
     {
-        private static Husnutdinov41Entities _context;
 
+        private static Husnutdinov41Entities _context;
         public static Husnutdinov41Entities GetContext()
         {
-            if (_context == null)
+            if(_context == null)
                 _context = new Husnutdinov41Entities();
             return _context;
         }
