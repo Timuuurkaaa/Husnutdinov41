@@ -21,9 +21,26 @@ namespace Husnutdinov41
     public partial class ShoesPage : Page
     {
         List<Product> Tablelist;
-        public ShoesPage()
+        public ShoesPage(User user)
         {
             InitializeComponent();
+            if (user == null)
+            {
+                FIOTB.Text = "вы зашли как гость!";
+            }
+            else
+            {
+                FIOTB.Text = user.UserSurname + " " + user.UserName + " " + user.UserPatronymic;
+                switch (user.UserRole)
+                {
+                    case 1:
+                        RoleTB.Text = "Клиент"; break;
+                    case 2:
+                        RoleTB.Text = "Менеджер"; break;
+                    case 3:
+                        RoleTB.Text = "Администратор"; break;
+                }
+            }
             var currentShoes = Husnutdinov41Entities.GetContext().Product.ToList();
             Tablelist = Husnutdinov41Entities.GetContext().Product.ToList();
             ShoesListView.ItemsSource = currentShoes;

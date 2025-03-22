@@ -23,12 +23,13 @@ namespace Husnutdinov41
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new ShoesPage());
+            MainFrame.Navigate(new AuthPage());
             Manager.MainFrame = MainFrame;
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
+
             Manager.MainFrame.GoBack();
         }
 

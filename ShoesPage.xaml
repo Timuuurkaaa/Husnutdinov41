@@ -16,26 +16,37 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" Margin="5">
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="4">
+            <TextBlock Name="Podskazka_1" Text="Вы авторизованы как " FontSize="15"></TextBlock>
+            <TextBlock Name="Podskazka_2" Text="Роль: " FontSize="15"></TextBlock>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3">
+            <TextBlock Name="FIOTB" Text="" FontSize="15"></TextBlock>
+            <TextBlock Name="RoleTB" Text="" FontSize="15"></TextBlock>
+        </StackPanel>
+            
+        <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" Margin="5">
             <TextBlock Name="TBVivedennieDannie" FontSize="20"></TextBlock>
             <TextBlock Name="TBAll" FontSize="20"></TextBlock>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="0">
+        <StackPanel Grid.Column="1" Grid.Row="1">
             <TextBlock Text="поиск по наименованию" FontSize="20"></TextBlock>
             <TextBox Name="Search" Margin="5"  FontSize="20" TextChanged="Search_TextChanged"></TextBox>
         </StackPanel>
 
-        <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Vertical" Margin="5">
+        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical" Margin="5">
             <RadioButton Name="RBUp" Content="по возрастанию стоимости" GroupName="Sort" FontSize="20" Checked="RBUp_Checked"></RadioButton>
             <RadioButton Name="RBDown" Content="по убыванию стоимости" GroupName="Sort" FontSize="20" Checked="RBDown_Checked"></RadioButton>
         </StackPanel>
 
-        <StackPanel Grid.Column="3" Grid.Row="0" Orientation="Vertical" Margin="5">
+        <StackPanel Grid.Column="3" Grid.Row="1" Orientation="Vertical" Margin="5">
             <TextBlock Text="фильтрация по скидке" FontSize="20"></TextBlock>
             <ComboBox Name="ComboType" FontSize="20" Width="230" HorizontalAlignment="Left" SelectionChanged="ComboBox_SelectionChanged">
                 <TextBlock Text="Все диапазоны"></TextBlock>
@@ -44,8 +55,8 @@
                 <TextBlock Text="от 15% и более %"></TextBlock>
             </ComboBox>
         </StackPanel>
-        
-        <ListView Name="ShoesListView" Grid.Row="1" Grid.ColumnSpan="4" SelectionChanged="ShoesListView_SelectionChanged">
+
+        <ListView Name="ShoesListView" Grid.Row="2" Grid.ColumnSpan="4" SelectionChanged="ShoesListView_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
