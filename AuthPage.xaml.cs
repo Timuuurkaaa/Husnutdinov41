@@ -59,8 +59,6 @@ namespace Husnutdinov41
                     if (user != null && (AuthFailscount == 0 || Capchacharacters == CapchaTB.Text))
                     {
                         Manager.MainFrame.Navigate(new ShoesPage(user));
-                        login = "";
-                        password = "";
                         Capchacharacters = "";
                         captchaOneWord.Text = "";
                         captchaTwoWord.Text = "";
