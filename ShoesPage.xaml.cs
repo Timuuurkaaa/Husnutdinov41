@@ -20,10 +20,14 @@ namespace Husnutdinov41
     /// </summary>
     public partial class ShoesPage : Page
     {
-        List<Product> Tablelist;
+        List<Product> selectedProducts = new List<Product>();
+        List<OrderProduct> selectedOrderProducts = new List<OrderProduct>();
+        int CountRecords;
+        private User _currentUser;
         public ShoesPage(User user)
         {
             InitializeComponent();
+            _currentUser = user;
             if (user == null)
             {
                 FIOTB.Text = "вы зашли как гость!";
@@ -41,11 +45,13 @@ namespace Husnutdinov41
                         RoleTB.Text = "Администратор"; break;
                 }
             }
+            OrderBtn.Visibility = Visibility.Hidden;
             var currentShoes = Husnutdinov41Entities.GetContext().Product.ToList();
-            Tablelist = Husnutdinov41Entities.GetContext().Product.ToList();
             ShoesListView.ItemsSource = currentShoes;
             ComboType.SelectedIndex = 0;
             UpdateShoes();
+            CountRecords = Husnutdinov41Entities.GetContext().Product.ToList().Count;
+            TBAll.Text = " из " + CountRecords.ToString();
         }
 
         private void UpdateShoes()
@@ -89,7 +95,6 @@ namespace Husnutdinov41
             ShoesListView.ItemsSource = currentShoes;
 
             TBVivedennieDannie.Text = "кол-во " + currentShoes.Count.ToString();
-            TBAll.Text = " из " + Tablelist.Count.ToString();
         }
 
         private void ShoesListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -115,6 +120,96 @@ namespace Husnutdinov41
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateShoes();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (ShoesListView.SelectedIndex >= 0)
+            {
+                var prod = ShoesListView.SelectedItem as Product;
+                selectedProducts.Add(prod);
+
+                // Проверяем, существует ли уже OrderProduct для этого товара
+                var existingOP = selectedOrderProducts.FirstOrDefault(op => op.ProductArticleNumber == prod.ProductArticleNumber);
+
+                if (existingOP == null)
+                {
+                    // Создаем новый OrderProduct, если его нет
+                    var newOrderProd = new OrderProduct
+                    {
+                        ProductArticleNumber = prod.ProductArticleNumber,
+                        ProductCount = 1
+                    };
+                    selectedOrderProducts.Add(newOrderProd);
+                    ////newOrderProd.OrderID = newOrderID;
+                }
+                else
+                {
+                    // Увеличиваем количество, если товар уже есть в заказе
+                    existingOP.ProductCount++;
+                }
+
+                OrderBtn.Visibility = Visibility.Visible;
+                ShoesListView.SelectedIndex = -1;
+
+            }
+        }
+
+        //private void OrderBtn_Click(object sender, RoutedEventArgs e)
+        //{
+        //    selectedProducts = selectedProducts.Distinct().ToList();
+        //    OrderWindow orderWindow = new OrderWindow(selectedOrderProducts, selectedProducts, _currentUser);
+        //    orderWindow.ShowDialog();
+        //}
+
+        private void OrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            selectedProducts = selectedProducts.Distinct().ToList();
+
+            // Добавьте этот код для инициализации Quantity в Product
+            foreach (var product in selectedProducts)
+            {
+                // Находим соответствующий OrderProduct для текущего Product
+                var orderProduct = selectedOrderProducts.FirstOrDefault(op =>
+                    op.ProductArticleNumber == product.ProductArticleNumber);
+
+                if (orderProduct != null)
+                {
+                    // Устанавливаем Quantity в Product на основе ProductCount из OrderProduct
+                    product.Quantity = orderProduct.ProductCount;
+                }
+                else
+                {
+                    // Если OrderProduct не найден (хотя это маловероятно), устанавливаем значение по умолчанию
+                    product.Quantity = 1;
+                }
+            }
+
+            OrderWindow orderWindow = new OrderWindow(selectedOrderProducts, selectedProducts, _currentUser);
+            bool? result = orderWindow.ShowDialog();
+
+            // Если заказ успешно сохранен (DialogResult = true)
+            if (result == true)
+            {
+                selectedProducts.Clear();
+                selectedOrderProducts.Clear();
+                ShoesListView.Items.Refresh(); // Обновить отображение списка
+            }
+
+            // Обновить видимость кнопки
+            OrderBtn.Visibility = selectedProducts.Any() ? Visibility.Visible : Visibility.Hidden;
+
+            //orderWindow.ShowDialog();
+
+            //// После закрытия окна:
+            //if (selectedProducts.Count == 0)
+            //{
+            //    OrderBtn.Visibility = Visibility.Hidden;
+            //}
+            //else
+            //{
+            //    OrderBtn.Visibility = Visibility.Visible;
+            //}
         }
     }
 }

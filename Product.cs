@@ -33,7 +33,20 @@ namespace Husnutdinov41
         public string ProductDescription { get; set; }
         public string ProductPhoto { get; set; }
         public string ProductStatus { get; set; }
-    
+
+        public string ProductPhotoString
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(ProductPhoto))
+                    return $"tovar/{ProductPhoto}";
+                else
+                    return null;
+            }
+        }
+
+        public int Quantity { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderProduct> OrderProduct { get; set; }
     }

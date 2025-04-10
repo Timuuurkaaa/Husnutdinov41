@@ -56,7 +56,14 @@
             </ComboBox>
         </StackPanel>
 
+        <Button Name="OrderBtn" Content="Просмотр заказа" Click="OrderBtn_Click" Grid.Column="2" HorizontalAlignment="Left"></Button>
+
         <ListView Name="ShoesListView" Grid.Row="2" Grid.ColumnSpan="4" SelectionChanged="ShoesListView_SelectionChanged">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить к заказу" Click="MenuItem_Click"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
